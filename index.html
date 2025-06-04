@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏀 Basket World 🌎</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a; /* Fondo oscuro */
+            color: #f5f5f5; /* Color de texto claro para el fondo oscuro */
+            line-height: 1.6;
+            overflow-x: hidden; /* Evitar scroll horizontal */
+        }
+
+        /* Encabezado */
+        header {
+            background: linear-gradient(90deg, #FF6F00, #FFD180); /* Degradado naranja/amarillo */
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 1000;
+        }
+
+        header h1 {
+            font-family: 'Bangers', cursive;
+            font-size: 3.5em;
+            margin: 0;
+            text-shadow: 3px 3px #E65100; /* Sombra para el título */
+            letter-spacing: 2px;
+        }
+
+        header p {
+            font-size: 1.2em;
+            margin-top: 5px;
+        }
+
+        /* Contenedor principal */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #2c2c2c; /* Fondo oscuro para el contenedor principal */
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada */
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Secciones */
+        section {
+            padding: 40px 0;
+            border-bottom: 1px solid #444; /* Borde más oscuro */
+        }
+
+        section:last-child {
+            border-bottom: none;
+        }
+
+        h2 {
+            font-family: 'Bangers', cursive;
+            font-size: 2.5em;
+            color: #90CAF9; /* Azul claro para títulos */
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+            text-transform: uppercase;
+        }
+
+        h2::after {
+            content: '🏀';
+            position: absolute;
+            right: 50%;
+            transform: translateX(50%) translateY(-10px);
+            font-size: 0.6em;
+            color: #FFC107;
+        }
+
+        /* Historia */
+        .history-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .history-text {
+            flex: 2;
+            min-width: 300px;
+            font-size: 1.1em;
+            text-align: justify;
+            color: #e0e0e0; /* Texto claro para la historia */
+        }
+
+        .history-image {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+        }
+
+        .history-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Ropa y Colaboraciones */
+        .clothing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .clothing-item {
+            background-color: #3a3a3a; /* Fondo más oscuro para items de ropa */
+            border: 1px solid #555; /* Borde más oscuro */
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .clothing-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .clothing-item img {
+            max-width: 80%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .clothing-item h3 {
+            color: #FFB74D; /* Naranja más claro para títulos */
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .clothing-item p {
+            font-size: 0.95em;
+            color: #ccc; /* Texto más claro */
+        }
+
+        /* Jugadores */
+        .player-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            justify-content: center;
+        }
+
+        .player-card {
+            background-color: #1E3A5F; /* Azul oscuro para tarjetas de jugador */
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+            text-align: center;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            position: relative;
+            border: 3px solid #64B5F6; /* Borde azul más claro */
+        }
+
+        .player-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
+        }
+
+        .player-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-bottom: 5px solid #0D47A1; /* Azul más oscuro */
+        }
+
+        .player-info {
+            padding: 15px;
+            color: #90CAF9; /* Azul claro para la info del jugador */
+        }
+
+        .player-info h3 {
+            margin: 10px 0 5px;
+            font-size: 1.8em;
+            font-family: 'Bangers', cursive;
+        }
+
+        .player-info p {
+            font-size: 1em;
+            margin: 0;
+            color: #BBDEFB; /* Azul aún más claro */
+        }
+
+        /* Tablas de productos */
+        .product-tables {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: #2c2c2c; /* Fondo oscuro para tablas */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            overflow: hidden; /* Para que border-radius funcione en las celdas */
+            min-width: 400px;
+        }
+
+        table th, table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #444; /* Borde más oscuro */
+            color: #f5f5f5; /* Texto claro para las celdas */
+        }
+
+        table th {
+            background-color: #64B5F6; /* Azul claro para encabezados */
+            color: white;
+            font-family: 'Bangers', cursive;
+            font-size: 1.2em;
+            text-transform: uppercase;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #3a3a3a; /* Fondo para filas pares */
+        }
+
+        table tr:hover {
+            background-color: #0D47A1; /* Resaltar fila al pasar el mouse (azul oscuro) */
+        }
+
+        table a {
+            color: #FFB74D; /* Naranja más claro para enlaces */
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease-in-out;
+        }
+
+        table a:hover {
+            color: #FF8A65; /* Naranja más oscuro al pasar el mouse */
+            text-decoration: underline;
+        }
+
+        /* Pie de página */
+        footer {
+            background-color: #121212; /* Gris muy oscuro */
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+            font-size: 0.9em;
+        }
+
+        /* Estilos de tienda digital */
+        .call-to-action {
+            background-color: #4CAF50; /* Verde vibrante */
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-top: 40px;
+            border-radius: 10px;
+            font-size: 1.5em;
+            font-weight: bold;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            animation: pulse 2s infinite; /* Animación de pulsación */
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: #FFC107; /* Amarillo */
+            color: #333;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.2em;
+            margin-top: 20px;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+
+        .cta-button:hover {
+            background-color: #FFA000;
+            transform: translateY(-2px);
+        }
+
+        /* Media Queries para responsividad */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.5em;
+            }
+
+            h2 {
+                font-size: 2em;
+            }
+
+            .container {
+                width: 95%;
+                margin: 20px auto;
+            }
+
+            .clothing-grid, .player-gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .history-content {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .history-image {
+                margin-top: 20px;
+            }
+
+            table {
+                min-width: unset;
+                overflow-x: auto; /* Permite scroll horizontal en tablas pequeñas */
+                display: block;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 2em;
+            }
+
+            h2 {
+                font-size: 1.8em;
+            }
+
+            .cta-button {
+                padding: 12px 25px;
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>🏀 Basket World 🌎</h1>
+        <p>Tu destino final para todo lo relacionado con el baloncesto. ¡Vive la pasión!</p>
+    </header>
+
+    <div class="container">
+        <section id="historia">
+            <h2>📜 Historia del Baloncesto 🏆</h2>
+            <div class="history-content">
+                <div class="history-text">
+                    <p>El baloncesto es un deporte de equipo que se juega entre dos equipos de cinco jugadores cada uno. El objetivo es introducir el balón en el aro del equipo contrario, lo que otorga puntos. El equipo con más puntos al finalizar el tiempo gana el partido.</p>
+                    <p>Fue inventado en diciembre de 1891 por James Naismith, un profesor de educación física canadiense en la YMCA de Springfield, Massachusetts, Estados Unidos. Naismith buscaba un deporte menos rudo que el fútbol americano y el rugby, que pudiera jugarse en un gimnasio durante los duros inviernos de Nueva Inglaterra.</p>
+                    <p>Las primeras reglas consistían en 13 principios básicos. Al principio, se usaban cestas de melocotones como aros y se sacaba el balón manualmente después de cada canasta. La popularidad del baloncesto creció rápidamente, extendiéndose por todo Estados Unidos y, posteriormente, por el mundo, gracias a la red de YMCA.</p>
+                    <p>En 1932 se fundó la Federación Internacional de Baloncesto Amateur (FIBA), y en 1936 el baloncesto se convirtió en un deporte olímpico en los Juegos de Berlín. Hoy en día, es uno de los deportes más populares y practicados a nivel mundial, con ligas profesionales como la NBA en Estados Unidos, que atraen a millones de aficionados.</p>
+                    <p>¡De una simple canasta de melocotones a un fenómeno global! 🌍</p>
+                </div>
+                <div class="history-image">
+                    <img src="https://gudstory.s3.us-east-2.amazonaws.com/wp-content/uploads/2021/08/06175114/Dr-James-Naismith-Biography.jpg" alt="James Naismith y la primera canasta">
+                    <p><i>James Naismith, el creador del baloncesto.</i></p>
+                </div>
+            </div>
+        </section>
+
+        <section id="ropa-marcas">
+            <h2>👕 Ropa de Baloncesto y Colaboraciones Épicas ✨</h2>
+            <p style="text-align: center; font-size: 1.1em; margin-bottom: 30px; color: #e0e0e0;">Explora algunas de las marcas más icónicas y sus colaboraciones que han definido el estilo en la cancha y fuera de ella.</p>
+
+            <div class="clothing-grid">
+                <div class="clothing-item">
+                    <img src="https://th.bing.com/th/id/R.dfc54a4a629903bda117d4717a2fc9fe?rik=swmQsDGc6vFhQA&pid=ImgRaw&r=0.jpg" alt="Jordan 1 Retro High OG Chicago">
+                    <h3>Nike Air Jordan</h3>
+                    <p>La línea Air Jordan, nacida de la colaboración con Michael Jordan, revolucionó el calzado deportivo. Sus lanzamientos son eventos mundiales y sus diseños son piezas de colección. Ejemplos incluyen las <strong>Jordan 1</strong>, <strong>Jordan 4</strong>, <strong>Jordan 11</strong>.</p>
+                </div>
+                <div class="clothing-item">
+                    <img src="https://cdna.lystit.com/photos/dickssportinggoods/54648433/adidas-BlackBlackWhite-Cloudfoam-Executor-Mid-Basketball-Shoes.jpeg" alt="Adidas Forum Low">
+                    <h3>Adidas Basketball</h3>
+                    <p>Adidas ha sido un pilar en el baloncesto desde sus inicios, patrocinando a leyendas como Kareem Abdul-Jabbar y más recientemente a James Harden y Damian Lillard. Famosa por sus modelos <strong>Forum</strong>, <strong>Superstar</strong>, y líneas signature de jugadores.</p>
+                </div>
+                <div class="clothing-item">
+                    <img src="https://sneakernews.com/wp-content/uploads/2023/05/reebok-shaq-attaq-orange-pink-HR0500-6-1.jpg" alt="Reebok Shaq Attaq">
+                    <h3>Reebok Basketball</h3>
+                    <p>Reebok tuvo una era dorada en los 90 con jugadores como Shaquille O'Neal y Allen Iverson. Sus modelos <strong>Shaq Attaq</strong> y <strong>Question</strong> siguen siendo iconos de estilo y rendimiento. 🏀</p>
+                </div>
+                <div class="clothing-item">
+                    <img src="https://th.bing.com/th/id/OIP.S7TJpboBFxay97G7zEZj2QHaFa?r=0&rs=1&pid=ImgDetMain.jpg"Under Armour Curry Flow 10">
+                    <h3>Under Armour Basketball</h3>
+                    <p>Con Stephen Curry como su buque insignia, Under Armour ha crecido exponencialmente en el baloncesto. Las líneas <strong>Curry Flow</strong> son conocidas por su ligereza y tracción innovadora. 🌟</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="jugadores">
+            <h2>🌟 Jugadores Legendarios y Estrellas Actuales 🚀</h2>
+            <p style="text-align: center; font-size: 1.1em; margin-bottom: 30px; color: #e0e0e0;">Conoce a algunos de los nombres que han dejado y siguen dejando huella en la historia del baloncesto.</p>
+
+            <div class="player-gallery">
+                <div class="player-card">
+                    <img src="https://th.bing.com/th/id/OIP.-OFzgZxYhLFhVqAzva8aCAHaEK?r=0&rs=1&pid=ImgDetMain.jpg" alt="Michael Jordan">
+                    <div class="player-info">
+                        <h3>Michael Jordan 🐐</h3>
+                        <p>Air Jordan | Chicago Bulls</p>
+                        <p>Considerado el mejor de todos los tiempos.</p>
+                    </div>
+                </div>
+                <div class="player-card">
+                    <img src="https://1.bp.blogspot.com/-FEWCQMmayyo/WcmCFHUxB9I/AAAAAAAAUr0/PplNP825qFQBoJdhMGCF8sIFHK3O2t6CgCLcBGAs/s1600/04132017-lebron-james.jpeg" alt="LeBron James">
+                    <div class="player-info">
+                        <h3>LeBron James 👑</h3>
+                        <p>King James | Los Angeles Lakers</p>
+                        <p>Una fuerza dominante en la era moderna.</p>
+                    </div>
+                </div>
+                <div class="player-card">
+                    <img src="https://wallpapercave.com/wp/wp5337616.jpg" alt="Kobe Bryant">
+                    <div class="player-info">
+                        <h3>Kobe Bryant 🐍</h3>
+                        <p>Black Mamba | Los Angeles Lakers</p>
+                        <p>Una leyenda y campeón incansable.</p>
+                    </div>
+                </div>
+                <div class="player-card">
+                    <img src="https://cdn.theathletic.com/app/uploads/2022/12/17151930/GettyImages-1402223229-scaled.jpg" alt="Stephen Curry">
+                    <div class="player-info">
+                        <h3>Stephen Curry 🎯</h3>
+                        <p>Chef Curry | Golden State Warriors</p>
+                        <p>El mejor tirador de la historia.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tienda">
+            <h2>🛒 Marcas y Productos Destacados en Nuestra Tienda 🚀</h2>
+            <p style="text-align: center; font-size: 1.1em; margin-bottom: 30px; color: #e0e0e0;">Aquí encontrarás los mejores productos de baloncesto con sus precios y enlaces directos a las tiendas oficiales.</p>
+
+            <div class="product-tables">
+                <table>
+                    <caption>👟 Calzado de Baloncesto - Jordan 👟</caption>
+                    <thead>
+                        <tr>
+                            <th>Marca/Modelo</th>
+                            <th>Costo Estimado</th>
+                            <th>Comprar Ahora</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Jordan 1 Retro High OG</td>
+                            <td>$180 - $500 USD+</td>
+                            <td><a href="https://www.nike.com/jordan" target="_blank">Visitar Tienda Jordan ↗️</a></td>
+                        </tr>
+                        <tr>
+                            <td>Jordan 4 Retro</td>
+                            <td>$220 - $600 USD+</td>
+                            <td><a href="https://www.nike.com/jordan" target="_blank">Visitar Tienda Jordan ↗️</a></td>
+                        </tr>
+                        <tr>
+                            <td>Jordan 11 Retro</td>
+                            <td>$225 - $550 USD+</td>
+                            <td><a href="https://www.nike.com/jordan" target="_blank">Visitar Tienda Jordan ↗️</a></td>
+                        </tr>
+                        <tr>
+                            <td>Jordan Zion 3</td>
+                            <td>$140 - $160 USD</td>
+                            <td><a href="https://www.nike.com/jordan" target="_blank">Visitar Tienda Jordan ↗️</a></td>
+                        </tr>
+                        <tr>
+                            <td>Jordan Tatum 2</td>
+                            <td>$120 - $140 USD</td>
+                            <td><a href="https://www.nike.com/jordan" target="_blank">Visitar Tienda Jordan ↗️</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table>
+                    <caption>👕 Ropa y Accesorios - Nike 🏀</caption>
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Costo Estimado</th>
+                            <th>Comprar Ahora</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Playera Nike Dri-FIT</td>
+                            <td>$30 - $50 USD</td>
+                            <td><a href="https://www.nike.com/mx/" target="_blank">Visitar Tienda Nike ↗️</a></td>
+                        </tr>
+                        <tr>
+                            <td>Shorts Nike Elite</td>
+                            <td>$45 - $70 USD</td>
+                            <td><a href="https://www.nike.com/mx/" target="_blank">Visitar Tienda Nike ↗️</a></td>
+                        </tr>
+                        <tr>
+                            <td>Calcetas Nike Elite Basketball</td>
+                            <td>$15 - $25 USD</td>
+                            <td><a href="https://www.nike.com/mx/" target="_blank">Visitar Tienda Nike ↗️</a></td>
+                        </tr>
+                        <tr>
+                            <td>Sudadera con Capucha Nike SB</td>
+                            <td>$60 - $100 USD</td>
+                            <td><a href="https://www.nike.com/mx/" target="_blank">Visitar Tienda Nike ↗️</a></td>
+                        </tr>
+                        <tr>
+                            <td>Manga de Compresión Nike Pro</td>
+                            <td>$20 - $35 USD</td>
+                            <td><a href="https://www.nike.com/mx/" target="_blank">Visitar Tienda Nike ↗️</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="call-to-action">
+                <p>¡No esperes más! Descubre la colección completa y eleva tu juego. 🔥</p>
+                <a href="https://www.nike.com/jordan" class="cta-button" target="_blank">¡Explora Jordan Ahora!</a>
+                <a href="https://www.nike.com/mx/" class="cta-button" target="_blank" style="margin-left: 20px;">¡Explora Nike Ahora!</a>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>Copyright &copy; 2025 Basket World. Todos los derechos reservados. 🏀🌎</p>
+    </footer>
+
+</body>
+</html>
